@@ -7,7 +7,7 @@ steps:
       - "python -c \"import loremipsum; result = loremipsum.sentence(max_char=20); print(result); open('result.txt', 'w').write(result)\""
       - "buildkite-agent annotate \"**Sentence Result:**<br>$(cat result.txt)\" --style info --context sentence"
     plugins:
-      - docker#v5.11.0:
+      - docker#v5.13.0:
           image: "python:3.13"
           workdir: /workdir
     branches: "demo"
