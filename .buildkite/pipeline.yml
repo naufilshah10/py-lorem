@@ -7,6 +7,5 @@ steps:
       - "echo '--- Result saved to result.txt ---'"
       - "cat result.txt"
     plugins:
-      - docker#v5.11.0:
+      - docker#v3.13.0:
           image: "python:3.13"
-          mount-buildkite-agent: false
