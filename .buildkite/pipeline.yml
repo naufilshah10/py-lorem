@@ -1,13 +1,10 @@
 steps:
-  # Step 1: Generate sentence and create annotation
-  - label: "Generate Lorem Ipsum Sentence"
+  - label: ":memo: Generate Lorem Ipsum Sentence"
     key: "sentence-step"
     command:
-      - "pip install loremipsum"
-      - "python -c \"import loremipsum; result = loremipsum.sentence(max_char=20); print(result); open('result.txt', 'w').write(result)\""
-      - "buildkite-agent annotate \"**Sentence Result:**<br>$(cat result.txt)\" --style info --context sentence"
+      - "pip install lorem"
+      - "python -c \"import lorem; result = lorem.sentence()[:20]; print(result); open('result.txt', 'w').write(result)\""
+      - "cat result.txt | buildkite-agent annotate --style info --context sentence"
     plugins:
-      - docker#v5.13.0:
+      - docker#v5.11.0:
           image: "python:3.13"
-          workdir: /workdir
-    branches: "demo"
