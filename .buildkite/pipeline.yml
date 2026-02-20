@@ -1,11 +1,5 @@
 steps:
   - label: ":memo: Generate Lorem Ipsum Sentence"
     key: "sentence-step"
-    command:
-      - "pip install lorem"
-      - "python -c \"import lorem; result = lorem.sentence()[:20]; print('Sentence Result:', result); open('result.txt', 'w').write(result)\""
-      - "echo '--- Result saved to result.txt ---'"
-      - "cat result.txt"
-    plugins:
-      - docker#v3.13.0:
-          image: "python:3.13"
+    command: |
+      docker run --rm python:3.13 /bin/sh -c "pip install lorem && python -c 'import lorem; result = lorem.sentence()[:20]; print(\"Sentence Result:\", result)'"
