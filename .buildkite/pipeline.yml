@@ -7,4 +7,4 @@ steps:
       - "cat result.txt | buildkite-agent annotate --style info --context sentence"
     plugins:
       - docker#v5.11.0:
-          image: "python:3.13"
+          image: "python:3.12"
