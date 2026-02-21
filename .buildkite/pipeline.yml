@@ -1,5 +1,10 @@
 steps:
   - label: ":memo: Generate Lorem Ipsum Sentence"
     key: "sentence-step"
-    command: |
-      docker run --rm python:3.13 /bin/sh -c "pip install lorem && python -c 'import lorem; result = lorem.sentence()[:20]; print(\"Sentence Result:\", result)'"
+    command:
+      - "pip install lorem"
+      - "python -c \"import lorem; result = lorem.sentence()[:20]; print(result); open('result.txt', 'w').write(result)\""
+      - "cat result.txt | buildkite-agent annotate --style info --context sentence"
+    plugins:
+      - docker#v5.11.0:
+          image: "python:3.13"
