@@ -2,11 +2,15 @@ steps:
   - label: ":memo: Generate Lorem Ipsum Sentence"
     key: "sentence-step"
     command:
-      - "python -m pip install --upgrade pip setuptools wheel"
-      - "pip install lorem"
-      - "pip install lorem"
-      - "python -c \"import lorem; result = lorem.sentence()[:20]; print(result); open('result.txt', 'w').write(result)\""
-      - "cat result.txt | buildkite-agent annotate --style info --context sentence"
+      - |
+        python <<EOF
+        import random
+        words = "lorem ipsum dolor sit amet consectetur adipiscing elit".split()
+        sentence = " ".join(random.choices(words, k=5))
+        print(sentence)
+        open("result.txt", "w").write(sentence)
+        EOF
+      - buildkite-agent annotate "**Sentence Result:**<br>$(cat result.txt)" --style info --context sentence
     plugins:
       - docker#v5.11.0:
-          image: "python:3.13"
+          image: "python:3.12"
